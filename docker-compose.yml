@@ -22,8 +22,9 @@ services:
 
 # Redis      
   db-redis:
-    image: "redis:alpine"
-    command: db-redis
+    image: "redis:latest"
+    container_name: db-redis
+    restart: unless-stopped
     ports:
       - "0.0.0.0:6379:6379"
     volumes:
