@@ -21,14 +21,32 @@ services:
       - backend
 
 # Redis      
-  db-redis:
+  redis:
     image: "redis:latest"
-    container_name: db-redis
+    hostname: redis
+    container_name: redis
     restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
     ports:
       - "0.0.0.0:6379:6379"
     volumes:
       - ./vol-redis/:/data
+    networks:
+      - backend 
+
+# REDIS GUI TOOL / MANAGER      
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: redis-commander
+    restart: unless-stopped
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+      - HTTP_USER=root
+      - HTTP_PASSWORD=qwerty
+    ports:
+      - 0.0.0.0:8181:8081
+    depends_on:
+      - redis
     networks:
       - backend 
 
