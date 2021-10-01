@@ -18,7 +18,7 @@ services:
     volumes:
       - ./:/var/www/html
     networks:
-      - ria-api
+      - backend
 
 # Redis      
   db-redis:
@@ -30,7 +30,7 @@ services:
     volumes:
       - ./vol-redis/:/data
     networks:
-      - ria-api 
+      - backend 
 
 # MONGO DB
   db-mongo:
@@ -45,7 +45,7 @@ services:
     volumes:
       - ./vol-mongo/:/data
     networks:
-      - ria-api  
+      - backend  
 
 # MONGOEXPRESS MONGO DB MANAGER / BROWSER
   mongo-express:
@@ -64,7 +64,7 @@ services:
     depends_on:
       - db-mongo
     networks:
-      - ria-api  
+      - backend  
 
 # MYSQL DB
   db-mysql:
@@ -83,7 +83,7 @@ services:
     volumes:
       - ./vol-mysql:/docker-entrypoint-initdb.d
     networks:
-      - ria-api
+      - backend
 
 # PHPMYADMIN MYSQL DB BROWSER / MANAGER
   phpmyadmin:
@@ -99,7 +99,7 @@ services:
       PMA_ARBITRARY: 1
       MYSQL_ROOT_PASSWORD: ${DB_MYSQL_PASSWORD-root}
     networks:
-      - ria-api
+      - backend
 
 # NGINX
   # nginx:
@@ -112,11 +112,11 @@ services:
   #     - ./:/var/www/app
   #     - ./vol-nginx:/etc/nginx/conf.d
   #   networks:
-  #     - ria-api
+  #     - backend
 
 # NETWORK
 networks:
-  ria-api:
+  backend:
     driver: bridge
 
 
