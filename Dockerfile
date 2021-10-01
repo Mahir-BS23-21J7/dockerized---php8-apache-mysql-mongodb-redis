@@ -8,20 +8,25 @@ ARG uid
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    git \
-    zip  \
+    git\
+    zip \
+    wget \
     curl  \
-    unzip  \
+    procps \
+    wget\
+    htop \ 
+    unzip \
     libssh-dev \
     libjpeg-dev \
-    libbz2-dev \
-    libxml2-dev \
-    libpng-dev \
-    libonig-dev \
+    libbz2-dev\
+    libssl-dev \
+    libpng-dev  \
+    libonig-dev  \
     libmcrypt-dev \
-    librabbitmq-dev\
-    libreadline-dev \
-    libfreetype6-dev \
+    libxml2-dev    \
+    librabbitmq-dev \
+    libreadline-dev  \
+    libfreetype6-dev  \
     libicu-dev \
     g++
 
@@ -46,6 +51,9 @@ RUN	curl -fsSL https://pecl.php.net/get/mongodb --ipv4 | tar xvz -C "/usr/src/ph
 # Get Amqp And Put it in a Dir For Direct Install
 RUN mkdir -p /usr/src/php/ext/amqp
 RUN	curl -fsSL https://pecl.php.net/get/amqp --ipv4 | tar xvz -C "/usr/src/php/ext/amqp" --strip 1
+# Get Amqp And Put it in a Dir For Direct Install
+RUN mkdir -p /usr/src/php/ext/swoole
+RUN	curl -fsSL https://pecl.php.net/get/swoole --ipv4 | tar xvz -C "/usr/src/php/ext/swoole" --strip 1
 
 
 # Clear cache
@@ -57,7 +65,8 @@ RUN docker-php-ext-install \
     gd \
     bz2 \
     intl \
-    redis \ 
+    redis \
+    swoole \ 
     amqp\
     exif \
     iconv \
