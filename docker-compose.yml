@@ -32,8 +32,7 @@ services:
       - 0.0.0.0:5672:5672
       - 0.0.0.0:15672:15672
     volumes:
-      - ./vol-rabbitmq/data/:/var/lib/rabbitmq/
-      - ./vol-rabbitmq/log/:/var/log/rabbitmq/
+      - vol-rabbitmq:/var/lib/rabbitmq/
     networks:
         - backend       
 
@@ -47,7 +46,7 @@ services:
     ports:
       - "0.0.0.0:6379:6379"
     volumes:
-      - ./vol-redis/:/data
+      - vol-redis/:/data
     networks:
       - backend 
 
@@ -78,7 +77,7 @@ services:
     ports:
       - "0.0.0.0:27017:27017"
     volumes:
-      - ./vol-mongo/:/data
+      - vol-mongo/:/data/db
     networks:
       - backend  
 
@@ -116,7 +115,7 @@ services:
     ports:
       - "0.0.0.0:6033:3306"
     volumes:
-      - ./vol-mysql:/docker-entrypoint-initdb.d
+      - vol-mysql:/var/lib/mysql
     networks:
       - backend
 
@@ -154,5 +153,25 @@ networks:
   backend:
     driver: bridge
 
+# Volumes
+volumes:
+  vol-mysql:
+    external: true
+    driver: local
+  vol-mongo:
+    external: true
+    driver: local
+  vol-redis:    
+    external: true
+    driver: local
+  vol-rabbitmq:    
+    external: true
+    driver: local
 
+## RUN THE FOLLOWING COMMANDS TO PRE CREATE VOLUMES
+#  docker volume create --name=vol-mongo
+#  docker volume create --name=vol-mysql
+#  docker volume create --name=vol-redis
+#  docker volume create --name=vol-rabbitmq
+ 
 
