@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     wget\
     htop \ 
     unzip \
+    libzip-dev\
     libssh-dev \
     libjpeg-dev \
     libbz2-dev\
@@ -66,7 +67,8 @@ RUN docker-php-ext-install \
     bz2 \
     intl \
     redis \
-    swoole \ 
+    swoole \
+    zip\ 
     amqp\
     exif \
     iconv \
