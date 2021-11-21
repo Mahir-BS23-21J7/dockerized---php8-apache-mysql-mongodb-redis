@@ -85,6 +85,10 @@ RUN docker-php-ext-install \
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Pull NodeJs From REPO
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
+# Install NodeJs
+RUN apt-get install nodejs
 
 # Create system user to run Composer and Artisan Commands
 RUN useradd -G www-data,root -u $uid -d /home/$user $user
